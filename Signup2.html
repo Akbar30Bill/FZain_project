@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign up</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400" rel="stylesheet"> </head>
+    <script type="text/javascript" src="scripts.js"></script>
+<body>
+    <section class="centered main_box">
+        <h1>Welcome!</h1>
+        <p>Sign up to view your home's up-to-date temperature!</p>
+        <form action="/signup" method="post">
+            <fieldset name="groupinfo slfieldset">
+                <legend>Group Info</legend>
+                <input type="text" name ="groupname" class ="field" placeholder="Group Name"><br>
+                <input type ="password" name="password" class="field" id = "test" placeholder="Password"><br id="test2">
+                <input type ="text" name="channelid" class="field" placeholder="ThingSpeak Channel ID">
+            </fieldset>
+            <fieldset name ="members slfieldset" id="members">
+                <legend>Group Members</legend>
+                <input type="text" name = "member 1" class ="field" placeholder="Member 1"><br>
+                <div id ="buttons">
+                    <a href="#" onclick="addMemberField()" id="add" class="add-rm-btn">Add Member</a>
+                    <a href="#" onclick="removeField()" id="rm" class="add-rm-btn">Remove Member</a><br>
+                </div>
+            </fieldset>
+        </form>
+        <p>Already signed up? <a href = "login.html" class = "un-underlined">Login</a></p>
+    </section>
+</body>
+</html>
