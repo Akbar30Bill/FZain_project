@@ -11,13 +11,13 @@
         <h1>Welcome!</h1>
         <p>Sign up to view your house's up-to-date temperature!</p>
         <form action="/signup" method="post">
-            <fieldset name="groupinfo">
+            <fieldset name="groupinfo" class="fieldSet">
                 <legend>Group Info</legend>
                 <input type="text" name ="groupName" class ="field" placeholder="Group Name"><br>
                 <input type ="password" name="password" class="field" id = "test" placeholder="Password"><br id="test2">
                 <input type ="text" name="channelId" class="field" placeholder="ThingSpeak Channel ID">
             </fieldset>
-            <fieldset name ="members" id="members">
+            <fieldset name ="members" id="members" class ="fieldSet">
                 <legend>Group Members</legend>
                 <input type="text" name = "member 1" class ="field" placeholder="Member 1"><br>
                 <div id ="buttons">

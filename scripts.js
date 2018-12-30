@@ -32,8 +32,3 @@ function removeField () {
     fs.appendChild(y);
     memCount--;
 }
-
-function x () {
-    removeField("test");
-    removeField("test2");
-}
