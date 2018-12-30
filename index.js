@@ -62,7 +62,14 @@ app.post('/login' , function(req,res){
   console.log("username: " + gp_name_);
   console.log("password: " + password_ );
   result = user_schema.find({"gp_name":gp_name_});
-  console.log(result);
+  if (result.password == sha512(password_))
+  {
+    res.send(result.frame)
+  }
+  else
+  {
+    res.send('login failed')
+  }
 });
 
 app.post('/signup' , function(req,res){
