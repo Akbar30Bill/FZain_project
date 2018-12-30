@@ -1,6 +1,10 @@
 let memCount = 1;
 
 function addMemberField () {
+    if (memCount == 3) {
+        alert("There can be a maximum of 3 members in a single group!");
+        return
+    }
     memCount++;
     let fs = document.getElementById("members");
     let buttons = document.getElementById("buttons");
