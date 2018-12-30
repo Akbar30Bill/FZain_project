@@ -1,6 +1,6 @@
 body {
     background-color: #110077;
-    font-family: Montserrat, "Open Sans";
+    font-family: Montserrat Arial Helvetica sans-serif;
 }
 
 .centered {
@@ -56,6 +56,27 @@ body {
 }
 
 .add-rm-btn:hover {
+    color:black;
+    background-color: white;
+}
+
+.sgnup-lgin-btn {
+    display: inline-block;
+    margin:0 auto;
+    margin-top: 5px;
+    padding: 3px 0 3px 0;
+    color: white;
+    background-color: red;
+    border: 2px solid red;
+    width: 30%;
+    font-family: Montserrat Arial Helvetica sans-serif;
+    font-size: 25px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.sgnup-lgin-btn:hover {
     color:black;
     background-color: white;
 }
