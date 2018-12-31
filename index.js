@@ -56,12 +56,14 @@ app.get('/signup', function(req , res){
   console.log(req.ip);
   res.sendFile(path.join(__dirname + '/Signup2.html'));
 });
-app.post('/login' , function(req,res){
+app.post('/login' ,async function(req,res){
   var gp_name_ = req.body.groupname;
   var password_ = req.body.password;
   console.log("username: " + gp_name_);
   console.log("password: " + password_ );
-  result = user_schema.find({"gp_name":gp_name_});
+  result = await user_schema.findOne({gp_name:gp_name_});
+  console.log(result.gp_name);
+  console.log(result.password);
   if (result.password == sha512(password_))
   {
     res.send(result.frame)
