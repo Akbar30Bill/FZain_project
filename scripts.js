@@ -1,38 +1,25 @@
 let memCount = 1;
 
-function addMemberField () {
+function addMemberField() {
     if (memCount == 3) {
         alert("There can be a maximum of 3 members in a single group!");
         return
     }
     memCount++;
-    let fs = document.getElementById("members");
-    let buttons = document.getElementById("buttons");
-    let btns = buttons.cloneNode(true);
-    let inp = document.createElement("input");
-    buttons.parentNode.removeChild(buttons);
-    inp.type = "text";
-    inp.name = "member " + memCount;
-    inp.placeholder = "Member " + memCount;
-    inp.className = "field";
-    fs.appendChild(inp);
-    fs.appendChild(document.createElement("br"));
-    fs.appendChild(btns);
+    let id = "member" + memCount;
+    let elem = document.getElementById(id);
+    elem.value=""
+    elem.style.display = "inline-block";
+    document.getElementById("b"+(memCount-1)).style.display="inline-block";
 }
-
-function removeField () {
+function removeMemberField() {
     if (memCount == 1) {
         alert("Your group should have at least one member!");
         return
     }
-    let x = document.getElementById("buttons");
-    let y = x.cloneNode(true);
-    let fs = document.getElementById("members");
-    x.parentNode.removeChild(x);
-    for (let i = 0 ; i < 2; i++) {
-        console.log(fs.lastChild);
-        fs.removeChild(fs.lastChild);
-    }
-    fs.appendChild(y);
+    let id = "member" + memCount;
+    let elem = document.getElementById(id);
+    elem.style.display = "none";
+    document.getElementById("b"+(memCount-1)).style.display="none";
     memCount--;
 }
