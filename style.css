@@ -1,6 +1,7 @@
 body {
     background-color: #110077;
     font-family: Montserrat;
+    margin: 0;
 }
 
 .centered {
@@ -17,6 +18,13 @@ body {
 
 .main_box p {
     font-size: 20px;
+}
+
+.grid {
+    margin: 0 auto;
+    width: 960px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 .main_box p{
@@ -163,7 +171,7 @@ body {
 
 .lead h1 {
     font-weight: 300;
-    font-size:36px;
+    font-size: 44px;
     line-height:44px;
     margin-bottom:22px;
 }
@@ -171,4 +179,67 @@ body {
 .lead p {
     font-size: 21px;
     line-height:33px;
+}
+
+.col-1-3,
+.col-2-3 {
+    display: inline-block;
+    vertical-align: top;
+}
+.col-1-3 {
+    width: 33.33%;
+}
+.col-2-3 {
+    width: 66.66%;
+}
+
+.founder {
+    width: 200px;
+    display:inline-block;
+    /*flex-direction: column;
+    align-items: center;*/
+    border: 2px solid darkblue;
+    text-align: center;
+}
+
+#rastarhymes {
+    margin-left: 10%;
+}
+
+#NMG {
+    margin-right: 10%;
+}
+.row {
+    background: #fff;
+    padding: 3px 0 44px 0;
+    text-align: center;
+}
+
+.row h1 {
+    text-align:center;
+}
+
+.row h1 {
+    font-weight:200;
+    font-size: 44px;
+    margin-bottom: 60px;
+}
+
+.founder h1 {
+    font-size: 30px;
+
+}
+
+#row2 {
+    background: #8cb6f4;
+    background: -webkit-linear-gradient(to left, #8cb6f4, #c8cff4);
+    background:    -moz-linear-gradient(to left, #8cb6f4, #c8cff4);
+    background:         linear-gradient(to left, #8cb6f4, #c8cff4);
+}
+
+.row h3 {
+    text-align: center;
+    font-weight:200;
+    font-size:20px;
+    color: rgba(41,41,41,0.82);
 }
