@@ -68,8 +68,14 @@ app.post('/login' ,async function(req,res){
     var index = fs.readFileSync(path.join(__dirname +'/index.html'), 'utf8');
     index = index.replace('<frameHere>' , result.frame);
     index = index.replace('<member1>' , result.names);
-    index = index.replace('<member2>' , result.names2);
-    index = index.replace('<member3>' , result.names3);
+    if(result.names2 != 'nomember')
+    {
+      index = index.replace('<member2>' , result.names2);
+    }
+    if(result.names3 != 'nomember')
+    {
+      index = index.replace('<member3>' , result.names3);
+    }
     index = index.replace('<chanelIDplace>' , result.chanelID)
     res.send(index);
   }
