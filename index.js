@@ -59,9 +59,13 @@ app.post('/login' ,async function(req,res){
   console.log(result.password);
   if (result.password == sha512(password_))
   {
-    var index = fs.readFileSync((path.join(__dirname + '/index.html'), 'utf8'));
+    console.log('1');
+    var index = fs.readFileSync(path.join(__dirname +'/index.html'), 'utf8');
+    console.log('2');
     index = index.replace('<frameHere>' , result.frame);
+    console.log('3');
     res.send(index);
+    console.log('4');
   }
   else
   {
