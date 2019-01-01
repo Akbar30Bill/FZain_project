@@ -15,8 +15,11 @@ var user = new mongoose.Schema({
   password:{type:String , require:true},
   email:{type:String , require:true , unique:true},
   names:{type:String , require:true},
+  names2:{type:String , require:true},
+  names3:{type:String , require:true},
   gp_name:{type:String , require:true},
-  frame:{type:String , require:true}
+  frame:{type:String , require:true},
+  chanelID:{type:String , require:true}
 });
 var user_schema = mongoose.model('user_schema', user);
 user.auth = function(gp_name_ , password_)
@@ -59,13 +62,13 @@ app.post('/login' ,async function(req,res){
   console.log(result.password);
   if (result.password == sha512(password_))
   {
-    console.log('1');
     var index = fs.readFileSync(path.join(__dirname +'/index.html'), 'utf8');
-    console.log('2');
     index = index.replace('<frameHere>' , result.frame);
-    console.log('3');
+    index = index.replace('<member1>' , result.names);
+    index = index.replace('<member2>' , result.names2);
+    index = index.replace('<member3>' , result.names3);
+    index = index.replace('<chanelIDplace>' , result.chanelID)
     res.send(index);
-    console.log('4');
   }
   else
   {
@@ -75,8 +78,9 @@ app.post('/login' ,async function(req,res){
 
 app.post('/signup' , function(req,res){
   console.log('Signing up');
-  // var names_ = req.body.name;
-  var names_ = 'nun';
+  var names_ = req.body.member1;
+  var names2_ = req.body.member2;
+  var names3_ = req.body.member3;
   var password_ = req.body.password;
   var email_ = req.body.email;
   var gp_name_ = req.body.groupName;
@@ -89,11 +93,14 @@ app.post('/signup' , function(req,res){
   console.log("password: " + password_);
   var new_user = new user_schema({
     names:names_,
+    names2:names2_,
+    names3:names3_,
     password:password_,
     email:email_,
     gp_name:gp_name_,
     username:username_,
-    frame:frame_
+    frame:frame_,
+    chanelID:req.body.channelId
   });
   new_user.save(function(err)
   {
