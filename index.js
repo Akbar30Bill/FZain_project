@@ -8,6 +8,7 @@ var mongoose = require('mongoose');
 var url = 'mongodb://user:1qw23e@ds143474.mlab.com:43474/fzain'
 var frame_lnk = '<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/<chanelID>/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>'
 var fs = require('fs');
+var jwt = require('jsonwebtoken');
 mongoose.connect(url);
 mongoose.Promise = global.Promise;
 var user = new mongoose.Schema({
@@ -19,7 +20,8 @@ var user = new mongoose.Schema({
   names3:{type:String , require:true},
   gp_name:{type:String , require:true},
   frame:{type:String , require:true},
-  chanelID:{type:String , require:true}
+  chanelID:{type:String , require:true},
+  ip:String
 });
 var user_schema = mongoose.model('user_schema', user);
 user.auth = function(gp_name_ , password_)
@@ -39,9 +41,40 @@ app.use(bodyParser.json());       // to support JSON-encoded bodies
 app.use(express.json());       // to support JSON-encoded bodies
 app.use(express.urlencoded()); // to support URL-encoded bodies
 app.use(bodyParser.urlencoded());     // to support URL-encoded bodies
-app.get('/', function(req , res){
+app.get('/', async function(req , res){
   console.log('presented root page to: ');
-  console.log(req.ip);
+  var ip = req.ip;
+  console.log(ip);
+  try{
+  user = await user_schema.findOne({ip:req.ip} , function(err , user)
+  {
+    try{
+    if(err)
+    {
+      res.sendFile(path.join(__dirname + '/login.html'));
+    }
+    var index = fs.readFileSync(path.join(__dirname +'/index.html'), 'utf8');
+    index = index.replace('<frameHere>' , user.frame);
+    index = index.replace('<member1>' , user.names);
+    if(user.names2 != 'nomember')
+    {
+      index = index.replace('<member2>' , user.names2);
+    }
+    if(user.names3 != 'nomember')
+    {
+      index = index.replace('<member3>' , user.names3);
+    }
+    index = index.replace('<chanelIDplace>' , user.chanelID)
+    res.send(index);}
+    catch(err)
+    {
+      res.sendFile(path.join(__dirname + '/login.html'));
+    }
+  });}
+  catch(err)
+  {
+    res.sendFile(path.join(__dirname + '/login.html'));
+  }
   res.sendFile(path.join(__dirname + '/login.html'));
 });
 app.get('/signup', function(req , res){
@@ -49,22 +82,26 @@ app.get('/signup', function(req , res){
   console.log(req.ip);
   res.sendFile(path.join(__dirname + '/Signup2.html'));
 });
-app.get('/logout' , function(req , res){
+app.get('/logout' , async function(req , res){
+  await user_schema.findOneAndUpdate({ip:req.ip},{ip:'0000'});
   res.sendFile(path.join(__dirname + '/login.html'));
 })
 app.get('/style.css' , function(req , res){
   res.sendFile(path.join(__dirname + '/style.css'));
 })
-app.post('/login' ,async function(req,res){
+app.post('/login' , async function(req,res){
   var gp_name_ = req.body.groupname;
   var password_ = req.body.password;
   console.log("username: " + gp_name_);
   console.log("password: " + password_ );
-  result = await user_schema.findOne({gp_name:gp_name_});
+  result = await user_schema.findOneAndUpdate({gp_name:gp_name_ },{ip:req.ip});
   console.log(result.gp_name);
   console.log(result.password);
   if (result.password == sha512(password_))
   {
+    var token = jwt.sign({ id: result.gp_name },'ILUAY', {
+      expiresIn: 300
+    });
     var index = fs.readFileSync(path.join(__dirname +'/index.html'), 'utf8');
     index = index.replace('<frameHere>' , result.frame);
     index = index.replace('<member1>' , result.names);
@@ -84,8 +121,7 @@ app.post('/login' ,async function(req,res){
     res.send('login failed')
   }
 });
-
-app.post('/signup' , function(req,res){
+app.post('/signup' , async function(req,res){
   console.log('Signing up');
   var names_ = req.body.member1;
   var names2_ = req.body.member2;
@@ -111,7 +147,7 @@ app.post('/signup' , function(req,res){
     frame:frame_,
     chanelID:req.body.channelId
   });
-  new_user.save(function(err)
+  await new_user.save(function(err)
   {
     if(err)
       {
@@ -127,29 +163,3 @@ app.post('/signup' , function(req,res){
 });
 
 app.listen(port, () => console.log(`app listening on port ${port}!`));
-
-// let memCount = 1;
-//
-// function addMemberField() {
-//     if (memCount == 3) {
-//         alert("There can be a maximum of 3 members in a single group!");
-//         return
-//     }
-//     memCount++;
-//     let id = "member" + memCount;
-//     let elem = document.getElementById(id);
-//     elem.value=""
-//     elem.style.display = "inline-block";
-//     document.getElementById("b"+(memCount-1)).style.display="inline-block";
-// }
-// function removeMemberField() {
-//     if (memCount == 1) {
-//         alert("Your group should have at least one member!");
-//         return
-//     }
-//     let id = "member" + memCount;
-//     let elem = document.getElementById(id);
-//     elem.style.display = "none";
-//     document.getElementById("b"+(memCount-1)).style.display="none";
-//     memCount--;
-// }
