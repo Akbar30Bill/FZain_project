@@ -49,6 +49,9 @@ app.get('/signup', function(req , res){
   console.log(req.ip);
   res.sendFile(path.join(__dirname + '/Signup2.html'));
 });
+app.get('/logout' , function(req , res){
+  res.sendFile(path.join(__dirname + '/login.html'));
+})
 app.get('/style.css' , function(req , res){
   res.sendFile(path.join(__dirname + '/style.css'));
 })
@@ -118,3 +121,29 @@ app.post('/signup' , function(req,res){
 });
 
 app.listen(port, () => console.log(`app listening on port ${port}!`));
+
+// let memCount = 1;
+//
+// function addMemberField() {
+//     if (memCount == 3) {
+//         alert("There can be a maximum of 3 members in a single group!");
+//         return
+//     }
+//     memCount++;
+//     let id = "member" + memCount;
+//     let elem = document.getElementById(id);
+//     elem.value=""
+//     elem.style.display = "inline-block";
+//     document.getElementById("b"+(memCount-1)).style.display="inline-block";
+// }
+// function removeMemberField() {
+//     if (memCount == 1) {
+//         alert("Your group should have at least one member!");
+//         return
+//     }
+//     let id = "member" + memCount;
+//     let elem = document.getElementById(id);
+//     elem.style.display = "none";
+//     document.getElementById("b"+(memCount-1)).style.display="none";
+//     memCount--;
+// }
