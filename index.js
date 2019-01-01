@@ -6,6 +6,8 @@ var bodyParser = require('body-parser')
 var sha512 = require('js-sha512');
 var mongoose = require('mongoose');
 var url = 'mongodb://user:1qw23e@ds143474.mlab.com:43474/fzain'
+var frame_lnk = '<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/<chanelID>/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>'
+var fs = require('fs');
 mongoose.connect(url);
 mongoose.Promise = global.Promise;
 var user = new mongoose.Schema({
@@ -30,22 +32,10 @@ user.auth = function(gp_name_ , password_)
     return 'incorrect password';
   }
 };
-// const mongo = require('mongodb').MongoClient
-// const url = 'mongodb://akbar:Akbar30bill@ds143474.mlab.com:43474/fzain'
-app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.json());       // to support JSON-encoded bodies
 app.use(express.json());       // to support JSON-encoded bodies
 app.use(express.urlencoded()); // to support URL-encoded bodies
 app.use(bodyParser.urlencoded());     // to support URL-encoded bodies
-// mongo.connect(url, (err, client) => {
-//   if (err) {
-//     console.error(err)
-//     return
-//   }
-//   else{
-//     client.createUser(username , password);
-//   }
-// });
-
 app.get('/', function(req , res){
   console.log('presented root page to: ');
   console.log(req.ip);
@@ -56,6 +46,9 @@ app.get('/signup', function(req , res){
   console.log(req.ip);
   res.sendFile(path.join(__dirname + '/Signup2.html'));
 });
+app.get('/style.css' , function(req , res){
+  res.sendFile(path.join(__dirname + '/style.css'));
+})
 app.post('/login' ,async function(req,res){
   var gp_name_ = req.body.groupname;
   var password_ = req.body.password;
@@ -66,7 +59,9 @@ app.post('/login' ,async function(req,res){
   console.log(result.password);
   if (result.password == sha512(password_))
   {
-    res.send(result.frame)
+    var index = fs.readFileSync((path.join(__dirname + '/index.html'), 'utf8'));
+    index = index.replace('<frameHere>' , result.frame);
+    res.send(index);
   }
   else
   {
@@ -83,6 +78,7 @@ app.post('/signup' , function(req,res){
   var gp_name_ = req.body.groupName;
   var username_ = req.body.username;
   var frame_ = req.body.channelId;
+  frame_ = frame_lnk.replace("<chanelID>" , frame_);
   password_ = sha512(password_);
   console.log("name: " + names_);
   console.log("username: " + username_);
