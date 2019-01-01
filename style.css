@@ -1,6 +1,7 @@
 body {
     background-color: #110077;
     font-family: Montserrat;
+    margin: 0;
 }
 
 .centered {
@@ -18,22 +19,35 @@ body {
 .main_box p {
     font-size: 20px;
 }
+
+.grid {
+    margin: 0 auto;
+    width: 960px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.main_box p{
+    width: 60%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
 .main_box {
     padding: 20px 20px 20px 20px;
     background-color: white;
-    border: #950023 solid 3px;
-    border-radius: 10px;
+    /*border-radius: 10px;*/
     text-align: center;
 }
 
 .field {
     margin: 5px 0 5px 0;
     padding: 5px 0 5px 10px;
-    border: 1px black solid;
+    border: 0;
+    border-bottom: 2px solid lightgray;
     width: 300px;
     height: 20px;
-    border-radius: 25px;
-    background-color: #d8d4f4;
+    /*border-radius: 25px;*/
+    /*background-color: #d8d4f4;*/
 
 }
 
@@ -44,9 +58,9 @@ body {
 .add-rm-btn {
     display: inline-block;
     border: 2px solid darkblue;
-    border-radius: 15px;
+    /*border-radius: 15px;*/
     background-color: darkblue;
-    width: 20%;
+    width: 30%;
     text-decoration: none;
     color: white;
     margin: 0 auto;
@@ -65,12 +79,13 @@ body {
     display: inline-block;
     margin:0 auto;
     margin-top: 5px;
+    margin-bottom: 10px;
     padding: 3px 0 3px 0;
     color: white;
-    background-color: red;
-    border: 2px solid red;
-    border-radius: 50px;
-    width: 30%;
+    background-color: #5d0c91;
+    border: 2px solid #5d0c91;
+    /*border-radius: 50px;*/
+    width: 65%;
     font-family: Montserrat;
     font-size: 25px;
     -webkit-transition-duration: 0.4s;
@@ -85,8 +100,30 @@ body {
 
 .fieldSet {
     border:solid 1px darkblue;
-    border-radius: 10px;
+    width:60%;
+    margin: 0 auto;
+   /* border-radius: 10px;*/
 
+}
+
+#member2 {
+    display: none;
+}
+
+#b1 {
+    display:none;
+}
+
+#b2 {
+    display:none;
+}
+
+#member3 {
+    display:none;
+}
+
+#buttons {
+    margin-top: 20px;
 }
 
 /* Index Page CSS */
@@ -154,7 +191,7 @@ body {
 
 .lead h1 {
     font-weight: 300;
-    font-size:36px;
+    font-size: 44px;
     line-height:44px;
     margin-bottom:22px;
 }
@@ -162,4 +199,83 @@ body {
 .lead p {
     font-size: 21px;
     line-height:33px;
+}
+
+.col-1-3,
+.col-2-3 {
+    display: inline-block;
+    vertical-align: top;
+}
+.col-1-3 {
+    width: 33.33%;
+}
+.col-2-3 {
+    width: 66.66%;
+}
+
+.col-1-2 {
+    width: 50%;
+    display:inline-block;
+    vertical-align: top;
+}
+
+.membersInfo {
+    text-align: left;
+    float:left;
+}
+
+.channelID {
+    text-align: right;
+}
+
+.founder {
+    width: 200px;
+    display:inline-block;
+    /*flex-direction: column;
+    align-items: center;*/
+    border: 2px solid darkblue;
+    text-align: center;
+}
+
+#rastarhymes {
+    margin-left: 10%;
+}
+
+#NMG {
+    margin-right: 10%;
+}
+.row {
+    background: #fff;
+    padding: 3px 0 44px 0;
+    text-align: center;
+}
+
+.row h1 {
+    text-align:center;
+}
+
+.row h1 {
+    font-weight:200;
+    font-size: 44px;
+    margin-bottom: 60px;
+}
+
+.founder h1 {
+    font-size: 30px;
+
+}
+
+#row2 {
+    background: #8cb6f4;
+    background: -webkit-linear-gradient(to left, #8cb6f4, #c8cff4);
+    background:    -moz-linear-gradient(to left, #8cb6f4, #c8cff4);
+    background:         linear-gradient(to left, #8cb6f4, #c8cff4);
+    height:350px;
+}
+
+.row h3 {
+    text-align: center;
+    font-weight:200;
+    font-size:20px;
+    color: rgba(41,41,41,0.82);
 }
