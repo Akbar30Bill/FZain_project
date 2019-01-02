@@ -9,7 +9,7 @@ var url = 'mongodb://user:1qw23e@ds143474.mlab.com:43474/fzain'
 var frame_lnk = '<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/<chanelID>/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>'
 var fs = require('fs');
 var jwt = require('jsonwebtoken');
-mongoose.connect(url);
+mongoose.connect(url , { useNewUrlParser: true });
 mongoose.Promise = global.Promise;
 var user = new mongoose.Schema({
   username:{type:String , require:true , unique:true},
