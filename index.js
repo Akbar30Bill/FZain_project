@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = server.listen(process.env.PORT || 3000);
 var path = require('path');
 var bodyParser = require('body-parser')
 var sha512 = require('js-sha512');
