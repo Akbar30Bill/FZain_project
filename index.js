@@ -158,7 +158,7 @@ app.post('/signup' , async function(req,res){
     else
       {
         console.log('user created')
-        res.send('user created')
+        res.sendFile(path.join(__dirname + '/login.html'));
       }
   });
 });
