@@ -39,8 +39,8 @@ user.auth = function(gp_name_ , password_)
 };
 app.use(bodyParser.json());       // to support JSON-encoded bodies
 app.use(express.json());       // to support JSON-encoded bodies
-app.use(express.urlencoded()); // to support URL-encoded bodies
-app.use(bodyParser.urlencoded());     // to support URL-encoded bodies
+app.use(express.urlencoded({ extended: true })); // to support URL-encoded bodies
+app.use(bodyParser.urlencoded({ extended: true }));     // to support URL-encoded bodies
 app.get('/', async function(req , res){
   console.log('presented root page to: ');
   var ip = req.ip;
