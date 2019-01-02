@@ -54,7 +54,7 @@ app.get('/', async function(req , res){
       res.sendFile(path.join(__dirname + '/login.html'));
     }
     var index = fs.readFileSync(path.join(__dirname +'/index.html'), 'utf8');
-    index = index.replace('Nima!' ,user.gp_name )
+    index = index.replace('Nima!' ,user.gp_name );
     index = index.replace('<frameHere>' , user.frame);
     index = index.replace('<member1>' , user.names);
     if(user.names2 != 'nomember')
