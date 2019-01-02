@@ -25,5 +25,8 @@
   "bugs": {
     "url": "https://github.com/Akbar30Bill/FZain_project/issues"
   },
-  "homepage": "https://github.com/Akbar30Bill/FZain_project#readme"
+  "homepage": "https://github.com/Akbar30Bill/FZain_project#readme",
+  "scripts": {
+    "start": "node index.js"
+}
 }
