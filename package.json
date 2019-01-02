@@ -1,0 +1,29 @@
+{
+  "name": "fzain_project",
+  "version": "1.0.0",
+  "description": "iot last proj",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.16.4",
+    "js-sha512": "^0.8.0",
+    "jsonwebtoken": "^8.4.0",
+    "mongoose": "^5.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Akbar30Bill/FZain_project.git"
+  },
+  "keywords": [
+    "fzain"
+  ],
+  "author": "akbar,nmg,rasta",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Akbar30Bill/FZain_project/issues"
+  },
+  "homepage": "https://github.com/Akbar30Bill/FZain_project#readme"
+}
