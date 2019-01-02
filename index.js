@@ -104,6 +104,7 @@ app.post('/login' , async function(req,res){
       expiresIn: 300
     });
     var index = fs.readFileSync(path.join(__dirname +'/index.html'), 'utf8');
+    index = index.replace('Nima!' , result.gp_name);
     index = index.replace('<frameHere>' , result.frame);
     index = index.replace('<member1>' , result.names);
     if(result.names2 != 'nomember')
