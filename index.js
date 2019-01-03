@@ -24,23 +24,10 @@ var user = new mongoose.Schema({
   ip:String
 });
 var user_schema = mongoose.model('user_schema', user);
-user.auth = function(gp_name_ , password_)
-{
-  console.log(this);
-  usr = this.where({gp_name: new RegExp(gp_name_ , 'i')});
-  if (usr.password == sha512(password_))
-  {
-    return usr.frame;
-  }
-  else
-  {
-    return 'incorrect password';
-  }
-};
-app.use(bodyParser.json());       // to support JSON-encoded bodies
+app.use(bodyParser.json());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true })); // to support URL-encoded bodies
-app.use(bodyParser.urlencoded({ extended: true }));     // to support URL-encoded bodies
+app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/', async function(req , res){
   console.log('presented root page to: ');
   var ip = req.ip;
@@ -92,11 +79,18 @@ app.get('/style.css' , function(req , res){
   res.sendFile(path.join(__dirname + '/style.css'));
 })
 app.post('/login' , async function(req,res){
+  var index_1 = fs.readFileSync(path.join(__dirname +'/login.html'), 'utf8');
+  index_1 = index_1.replace('Welcome!' , 'incorrect username or password');
   var gp_name_ = req.body.groupname;
   var password_ = req.body.password;
   console.log("gp_name: " + gp_name_);
   console.log("password: " + password_ );
-  result = await user_schema.findOneAndUpdate({gp_name:gp_name_ },{ip:req.ip});
+  result = await user_schema.findOneAndUpdate({gp_name:gp_name_ },{ip:req.ip}).catch(res.send(index_1));
+  if (typeof(result) == null)
+  {
+    res.send('incorrect username or password');
+    return;
+  }
   console.log(result.gp_name);
   console.log(result.password);
   if (result.password == sha512(password_))
