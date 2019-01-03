@@ -7,20 +7,24 @@ var sha512 = require('js-sha512');
 var mongoose = require('mongoose');
 var url = 'mongodb://user:1qw23e@ds143474.mlab.com:43474/fzain'
 var frame_lnk = '<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/<chanelID>/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>   <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/<chanelID>/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>   <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/<chanelID>/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>   <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/<chanelID>/charts/4?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>'
+var f1 = '<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/<chanelID>/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>'
+var f2 = '<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/<chanelID>/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>'
+var f3 = '<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/<chanelID>/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>'
+var f4 = '<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/<chanelID>/charts/4?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>'
 var fs = require('fs');
 var jwt = require('jsonwebtoken');
 mongoose.connect(url , { useNewUrlParser: true });
 mongoose.Promise = global.Promise;
 var user = new mongoose.Schema({
-  username:{type:String , require:true , unique:true},
-  password:{type:String , require:true},
-  email:{type:String , require:true , unique:true},
-  names:{type:String , require:true},
-  names2:{type:String , require:true},
-  names3:{type:String , require:true},
-  gp_name:{type:String , require:true},
-  frame:{type:String , require:true},
-  chanelID:{type:String , require:true},
+  // username:{type:String , require:true , unique:true , default:'iluay'},
+  password:{type:String , require:true , default:'iluay'},
+  // email:{type:String , require:true , default:'iluay' , unique:true},
+  names:{type:String , require:true , default:'iluay'},
+  names2:{type:String , require:true , default:'iluay'},
+  names3:{type:String , require:true , default:'iluay'},
+  gp_name:{type:String , require:true , default:'iluay' , unique:true},
+  frame:{type:String , require:true , default:'iluay'},
+  chanelID:{type:String , require:true , default:'iluay'},
   ip:String
 });
 var user_schema = mongoose.model('user_schema', user);
@@ -85,12 +89,31 @@ app.post('/login' , async function(req,res){
   var password_ = req.body.password;
   console.log("gp_name: " + gp_name_);
   console.log("password: " + password_ );
-  result = await user_schema.findOneAndUpdate({gp_name:gp_name_ },{ip:req.ip}).catch(res.send(index_1));
+  try{
+  result = await user_schema.findOneAndUpdate({gp_name:gp_name_ },{ip:req.ip} , function(err , result){
+    if(err)
+    {
+      res.send(index_1);
+    }
+    if(result == null)
+    {
+      res.send(index_1);
+    }
+  })}
+  catch(ex)
+  {
+    res.send(index_1);
+  }
   if (typeof(result) == null)
   {
-    res.send('incorrect username or password');
+    res.send(index_1);
     return;
   }
+  if(result == null)
+  {
+    res.send(index_1);
+  }
+  console.log('here global');
   console.log(result.gp_name);
   console.log(result.password);
   if (result.password == sha512(password_))
@@ -125,23 +148,24 @@ app.post('/signup' , async function(req,res){
   var names2_ = req.body.member2;
   var names3_ = req.body.member3;
   var password_ = req.body.password;
-  var email_ = req.body.email;
+  // var email_ = req.body.email;
   var gp_name_ = req.body.groupName;
-  var username_ = req.body.username;
-  var frame_ = req.body.channelId;
-  frame_ = frame_lnk.replace("<chanelID>" , frame_);
+  // var username_ = req.body.username;
+  // var frame_ = req.body.channelId;
+  frame_ = f1.replace("<chanelID>" , req.body.channelId) + f2.replace("<chanelID>" , req.body.channelId) + f3.replace("<chanelID>" , req.body.channelId) + f4.replace("<chanelID>" , req.body.channelId);
+  // frame_ = frame_lnk.replace("<chanelID>" , frame_);
   password_ = sha512(password_);
-  console.log("name: " + names_);
-  console.log("username: " + username_);
-  console.log("password: " + password_);
+  // console.log("name: " + names_);
+  // console.log("username: " + username_);
+  // console.log("password: " + password_);
   var new_user = new user_schema({
     names:names_,
     names2:names2_,
     names3:names3_,
     password:password_,
-    email:email_,
+    // email:"iluay",
     gp_name:gp_name_,
-    username:username_,
+    // username:"iluay",
     frame:frame_,
     chanelID:req.body.channelId
   });
@@ -150,6 +174,7 @@ app.post('/signup' , async function(req,res){
     if(err)
       {
         console.log('failed saving user')
+        console.log(err);
         res.send('filed creating user')
       }
     else
