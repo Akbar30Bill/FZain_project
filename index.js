@@ -6,7 +6,7 @@ var bodyParser = require('body-parser')
 var sha512 = require('js-sha512');
 var mongoose = require('mongoose');
 var url = 'mongodb://user:1qw23e@ds143474.mlab.com:43474/fzain'
-var frame_lnk = '<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/<chanelID>/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>'
+var frame_lnk = '<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/<chanelID>/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>   <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/<chanelID>/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>'
 var fs = require('fs');
 var jwt = require('jsonwebtoken');
 mongoose.connect(url , { useNewUrlParser: true });
@@ -57,6 +57,7 @@ app.get('/', async function(req , res){
     index = index.replace('Nima!' ,user.gp_name );
     index = index.replace('<frameHere>' , user.frame);
     index = index.replace('<member1>' , user.names);
+    index = index.replace('The Best Group Ever' , user.gp_name);
     if(user.names2 != 'nomember')
     {
       index = index.replace('<member2>' , user.names2);
@@ -93,7 +94,7 @@ app.get('/style.css' , function(req , res){
 app.post('/login' , async function(req,res){
   var gp_name_ = req.body.groupname;
   var password_ = req.body.password;
-  console.log("username: " + gp_name_);
+  console.log("gp_name: " + gp_name_);
   console.log("password: " + password_ );
   result = await user_schema.findOneAndUpdate({gp_name:gp_name_ },{ip:req.ip});
   console.log(result.gp_name);
@@ -107,6 +108,7 @@ app.post('/login' , async function(req,res){
     index = index.replace('Nima!' , result.gp_name);
     index = index.replace('<frameHere>' , result.frame);
     index = index.replace('<member1>' , result.names);
+    index = index.replace('The Best Group Ever' , result.gp_name);
     if(result.names2 != 'nomember')
     {
       index = index.replace('<member2>' , result.names2);
