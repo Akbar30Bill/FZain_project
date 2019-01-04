@@ -1,9 +1,14 @@
 body {
-    background-color: #110077;
+    background-image: url("background.jpeg");
     font-family: Montserrat;
     margin: 0;
 }
 
+.idx {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 .centered {
     position: fixed;
     top: 50%;
@@ -155,6 +160,12 @@ body {
 .row,
 .row-alt {
     min-width: 960px;
+    width:60%;
+}
+
+.wraprows {
+    display:flex;
+    justify-content: center;
 }
 
 .row-alt {

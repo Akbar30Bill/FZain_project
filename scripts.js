@@ -20,6 +20,7 @@ function removeMemberField() {
     let id = "member" + memCount;
     let elem = document.getElementById(id);
     elem.style.display = "none";
+    elem.value = "nomember";
     document.getElementById("b"+(memCount-1)).style.display="none";
     memCount--;
 }
