@@ -46,6 +46,24 @@ void handleNotFound() {
   digitalWrite(led, 0);
 }
 
+void MQ7sensorHandle() {
+
+  float sensor_volt;
+  float RS_air; 
+  float R0;
+  float sensorValue;
+  for(int x = 0 ; x < 100 ; x++)
+  {
+  sensorValue = sensorValue + analogRead(A0);
+  }
+  sensorValue = sensorValue/100.0;
+ 
+  sensor_volt = sensorValue/1024*3.3;
+  RS_air = (3.3-sensor_volt)/sensor_volt;
+  R0 = RS_air/10.0; 
+  ThingSpeak.writeField(659312, 3, R0 * 3 / 5, "PXNWJ7WHL04YMOB7");
+}
+
 void setup(void) {
   pinMode(led, OUTPUT);
   pinMode(D6,OUTPUT);
@@ -102,6 +120,7 @@ void loop(void) {
   digitalWrite(D6, LOW);
   const unsigned long duration= pulseIn(D5, HIGH);
  int distance= duration/29/2;
+ //MQ7sensorHandle()
   ThingSpeak.writeField(659312 , 1 , cel , "PXNWJ7WHL04YMOB7");
   ThingSpeak.writeField(659312 , 3 , distance, "PXNWJ7WHL04YMOB7");
   Serial.print(cel);
