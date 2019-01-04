@@ -82,6 +82,9 @@ app.get('/logout' , async function(req , res){
 app.get('/style.css' , function(req , res){
   res.sendFile(path.join(__dirname + '/style.css'));
 })
+app.get('/bg.jpeg' , function(req,res){
+  res.sendFile(path.join(__dirname + '/bg.jpeg'));
+})
 app.post('/login' , async function(req,res){
   var index_1 = fs.readFileSync(path.join(__dirname +'/login.html'), 'utf8');
   index_1 = index_1.replace('Welcome!' , 'incorrect username or password');
