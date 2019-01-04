@@ -27,7 +27,7 @@ var user = new mongoose.Schema({
   chanelID:{type:String , require:true , default:'iluay'},
   ip:String
 });
-var user_schema = mongoose.model('user_schema', user);
+var user_schema = mongoose.model('fzaindb', user);
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
