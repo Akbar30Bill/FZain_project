@@ -4,7 +4,7 @@
   "description": "iot last proj",
   "main": "index.js",
   "dependencies": {
-    "express": "^4.16.4",
+    "express": "^4.18.2",
     "js-sha512": "^0.8.0",
     "jsonwebtoken": "^8.4.0",
     "mongoose": "^5.2.8",
