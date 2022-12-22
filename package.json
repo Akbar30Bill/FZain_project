@@ -6,7 +6,7 @@
   "dependencies": {
     "express": "^4.16.4",
     "js-sha512": "^0.8.0",
-    "jsonwebtoken": "^8.4.0",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^5.2.8",
     "serve-favicon": "^2.5.0"
   },
